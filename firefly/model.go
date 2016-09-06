@@ -78,9 +78,9 @@ type Device struct {
 	NetworkSessionKey     string `json:"network_session_key"`
 	Otaa                  bool `json:"otaa"`
 	Tags                  []string `json:"tags"`
-	CreatedAt             string `json:"created_at"`
+	CreatedAt             LocalTimeWithoutZone `json:"created_at"`
 	DeviceClassId         int `json:"device_class_id"`
-	UpdatedAt             string `json:"updated_at"`
+	UpdatedAt             LocalTimeWithoutZone `json:"updated_at"`
 }
 
 type DeviceListResponse struct {
@@ -145,7 +145,7 @@ type PacketListResponse struct {
 		Payload          string `json:"payload"`
 		PayloadEncrypted bool `json:"payload_encrypted"`
 		Port             int `json:"port"`
-		ReceivedAt       string `json:"received_at"`
+		ReceivedAt       LocalTimeWithoutZone `json:"received_at"`
 		Size             int `json:"size"`
 		SpreadingFactor  int `json:"spreading_factor"`
 	} `json:"packets"`
@@ -234,14 +234,14 @@ type DeviceCalculateElement struct {
 type DeviceClass     struct {
 	Description string `json:"description"`
 	Id          int `json:"id"`
-	InsertedAt  string `json:"inserted_at"`
+	InsertedAt  LocalTimeWithoutZone `json:"inserted_at"`
 	Name        string `json:"name"`
 	Script      struct {
 			    Variables         DeviceVariables `json:"variables"`
 			    ParseElements     []DeviceParseElement `json:"parseElements"`
 			    CalculateElements []DeviceCalculateElement `json:"calculateElements"`
 		    } `json:"script"`
-	UpdatedAt   string `json:"updated_at"`
+	UpdatedAt   LocalTimeWithoutZone `json:"updated_at"`
 }
 
 type DeviceClassesListResponse struct {
