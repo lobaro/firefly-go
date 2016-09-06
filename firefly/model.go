@@ -96,19 +96,30 @@ type DeviceResponse struct {
 }
 
 type ListPacketsParams struct {
+	// (optional) when set to asc, it will return the oldest Packets first. When set to desc, it will return the most recent packets. Default is desc.
 	Direction     string
+	// (optional) the amount Packets to be returned. Ordered by creation date, descending (unless otherwise specified through the direction parameter). Default value is 1 Maximum value is 100.
 	LimitToLast   int
+	// (optional) the amount of most recent Packets to skip before returning Packets. Default value is 0.
 	Offset        int
+	// (optional) only return the Payload, the parsed Payload (where applicable), the Timestamp and the Device Address of the Packet. Default is false. Any other value will set this parameter to true.
 	PayloadOnly   bool
+	// (optional) only return packets after this date. If this parameter is used and no limit_to_last value is supplied, limit_to_last will be set to 10. Default is the Unix Epoch Timestamp (meaning that no Packets will be omitted). Specify an ISO 8601 Date String here.
 	ReceivedAfter *time.Time
 }
 
 type ListAllPacketsParams struct {
+	// (optional) when set to asc, it will return the oldest Packets first. When set to desc, it will return the most recent packets. Default is desc.
 	Direction     string
+	// (optional) the amount Packets to be returned. Ordered by creation date, descending (unless otherwise specified through the direction parameter). Default value is 1 Maximum value is 100.
 	LimitToLast   int
+	// (optional) the amount of most recent Packets to skip before returning Packets. Default value is 0.
 	Offset        int
+	// (optional) only return the Payload, Timestamp and Device Address of the Packet. Default is false. Any other value will set this parameter to true.
 	PayloadOnly   bool
+	// (optional) only return packets after this date. If this parameter is used and no limit_to_last value is supplied, limit_to_last will be set to 10. Default is the Unix Epoch Timestamp (meaning that no Packets will be omitted). Specify an ISO 8601 Date String here.
 	ReceivedAfter *time.Time
+	// 	(optional) do NOT show Packets from Devices that are not directly in the Organization that the API Key is registered for.
 	SkipSuborgs   bool
 }
 
