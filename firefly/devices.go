@@ -75,7 +75,7 @@ func (client Client) ListDevicePackets(eui string, params ListDevicePacketsParam
 		q.Set("payload_only", strconv.FormatBool(params.PayloadOnly))
 	}
 	if (params.ReceivedAfter != nil) {
-		q.Set("received_after", params.ReceivedAfter.Format(time.RFC3339))
+		q.Set("received_after", params.ReceivedAfter.Format(localTimeWithoutZoneFormat))
 	}
 
 	reqUrl.RawQuery = q.Encode()
