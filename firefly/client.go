@@ -9,6 +9,8 @@ import (
 	"os"
 	"io"
 	"bytes"
+	"golang.org/x/net/trace"
+	"io/ioutil"
 )
 
 type Client struct {
@@ -16,6 +18,7 @@ type Client struct {
 	http         http.Client
 	baseUrl      string
 	secretApiKey string
+	debugLog     bool
 }
 
 func NewClient(secretApiKey string) *Client {
@@ -24,6 +27,10 @@ func NewClient(secretApiKey string) *Client {
 	client.secretApiKey = secretApiKey
 	client.baseUrl = "https://api.fireflyiot.com/api/v1/"
 	return client
+}
+
+func (client *Client) SetDebugLog(val bool) {
+	client.debugLog = val
 }
 
 func (client Client) Url() (u *url.URL) {
@@ -114,28 +121,45 @@ func decodeJsonResponse(resp *http.Response, target interface{}) (err error) {
 //////////////////////
 
 // like http.Post but for put, it's missing in http package
-func (client *Client) put(url string, bodyType string, body io.Reader) (*http.Response, error) {
+func (client *Client) put(url string, bodyType string, body io.Reader) (res *http.Response, err error) {
 	req, err := http.NewRequest("PUT", url, body)
 	if err != nil {
 		return nil, err
 	}
 	req.Header.Set("Content-Type", bodyType)
-	return client.http.Do(req)
+	res, err = client.http.Do(req)
+	if client.debugLog {
+		client.log.Println("PUT", res.Status, url)
+	}
+
+	return
 }
 
-func (client *Client) post(url string, bodyType string, body io.Reader) (*http.Response, error) {
-	return client.http.Post(url, bodyType, body)
+func (client *Client) post(url string, bodyType string, body io.Reader) (res *http.Response, err error) {
+	res, err = client.http.Post(url, bodyType, body)
+	if client.debugLog {
+		client.log.Println("POST", res.Status, url)
+	}
+	return
 }
 
-func (client *Client) get(url string) (*http.Response, error) {
-	return client.http.Get(url)
+func (client *Client) get(url string) (res *http.Response, err error) {
+	res, err =  client.http.Get(url)
+	if client.debugLog {
+		client.log.Println("GET", res.Status, url)
+	}
+	return
 }
 
-func (client *Client) delete(url string) (*http.Response, error) {
+func (client *Client) delete(url string) (res *http.Response, err error) {
 	req, err := http.NewRequest("DELETE", url, nil)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.http.Do(req)
+	res, err =  client.http.Do(req)
+	if client.debugLog {
+		client.log.Println("DELETE", res.Status, url)
+	}
+	return
 }
