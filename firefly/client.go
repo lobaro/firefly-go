@@ -9,8 +9,6 @@ import (
 	"os"
 	"io"
 	"bytes"
-	"golang.org/x/net/trace"
-	"io/ioutil"
 )
 
 type Client struct {
