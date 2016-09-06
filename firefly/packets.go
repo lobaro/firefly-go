@@ -5,7 +5,7 @@ import (
 	"strconv"
 )
 
-func (client Client) AllPackets(eui EUI, params ListAllPacketsParams) (r PacketListResponse, err error) {
+func (client Client) AllPackets(params ListAllPacketsParams) (r PacketListResponse, err error) {
 	reqUrl := client.Url()
 	reqUrl.Path += "/packets"
 
