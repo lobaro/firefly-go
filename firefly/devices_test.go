@@ -15,7 +15,7 @@ func TestClient_ListPackets(t *testing.T) {
 		httpmock.NewStringResponder(200, allPacketsResponse),
 	)
 	
-	r, err := client.ListDevicePackets("00000000FCFCA4AA", ListPacketsParams{})
+	r, err := client.ListDevicePackets("00000000FCFCA4AA", ListDevicePacketsParams{})
 
 	if err != nil {
 		t.Error(err)

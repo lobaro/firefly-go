@@ -95,7 +95,7 @@ type DeviceResponse struct {
 	Device Device `json:"device,omitempty"`
 }
 
-type ListPacketsParams struct {
+type ListDevicePacketsParams struct {
 	// (optional) when set to asc, it will return the oldest Packets first. When set to desc, it will return the most recent packets. Default is desc.
 	Direction     string
 	// (optional) the amount Packets to be returned. Ordered by creation date, descending (unless otherwise specified through the direction parameter). Default value is 1 Maximum value is 100.
