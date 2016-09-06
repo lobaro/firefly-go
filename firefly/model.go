@@ -5,8 +5,6 @@ import (
 	"fmt"
 )
 
-type EUI string
-type DeviceAddress string
 
 type DigimondoReponse struct {
 	Error string `json:"error,omitempty"`

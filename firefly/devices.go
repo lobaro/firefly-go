@@ -14,7 +14,7 @@ func (client Client) ShowAllDevices() (r DeviceListResponse, err error) {
 	return
 }
 
-func (client Client) ShowDeviceByEui(eui EUI) (r DeviceResponse, err error) {
+func (client Client) ShowDeviceByEui(eui string) (r DeviceResponse, err error) {
 	reqUrl := client.Url()
 	reqUrl.Path += "devices/eui/" + string(eui)
 
@@ -23,7 +23,7 @@ func (client Client) ShowDeviceByEui(eui EUI) (r DeviceResponse, err error) {
 	return
 }
 
-func (client Client) ShowDeviceByAddress(address DeviceAddress) (r DeviceResponse, err error) {
+func (client Client) ShowDeviceByAddress(address string) (r DeviceResponse, err error) {
 	reqUrl := client.Url()
 	reqUrl.Path += "devices/address/" + string(address)
 
@@ -41,7 +41,7 @@ func (client Client) CreateDevice(request DeviceCreateRequest) (r DeviceResponse
 	return
 }
 
-func (client Client) UpdateDevice(eui EUI, request DeviceUpdateRequest) (r DeviceResponse, err error) {
+func (client Client) UpdateDevice(eui string, request DeviceUpdateRequest) (r DeviceResponse, err error) {
 	reqUrl := client.Url()
 	reqUrl.Path += "devices/eui/" + string(eui)
 
@@ -49,7 +49,7 @@ func (client Client) UpdateDevice(eui EUI, request DeviceUpdateRequest) (r Devic
 	err = client.putAndDecode(reqUrl, request, &r)
 	return
 }
-func (client Client) DeleteDevice(eui EUI) (err error) {
+func (client Client) DeleteDevice(eui string) (err error) {
 	reqUrl := client.Url()
 	reqUrl.Path += "devices/eui/" + string(eui)
 
@@ -57,7 +57,7 @@ func (client Client) DeleteDevice(eui EUI) (err error) {
 	return
 }
 
-func (client Client) ListDevicePackets(eui EUI, params ListDevicePacketsParams) (r PacketListResponse, err error) {
+func (client Client) ListDevicePackets(eui string, params ListDevicePacketsParams) (r PacketListResponse, err error) {
 	reqUrl := client.Url()
 	reqUrl.Path += "devices/eui/" + string(eui) + "/packets"
 
@@ -85,7 +85,7 @@ func (client Client) ListDevicePackets(eui EUI, params ListDevicePacketsParams) 
 	return
 }
 
-func (client Client) SendPacketToDevice(eui EUI, request SendPacketRequest) (r SendPacketResponse, err error) {
+func (client Client) SendPacketToDevice(eui string, request SendPacketRequest) (r SendPacketResponse, err error) {
 	reqUrl := client.Url()
 	reqUrl.Path += "devices/eui/" + string(eui) + "/packets"
 
