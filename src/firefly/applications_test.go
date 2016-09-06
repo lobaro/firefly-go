@@ -9,6 +9,7 @@ func TestShowApplications(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
+	
+	t.Log("Applications:",r.Applications)
 
-	t.Error(r)
 }

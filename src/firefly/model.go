@@ -12,24 +12,30 @@ type DigimondoReponse struct {
 	Error string `json:"error"`
 }
 
-type TimeWithoutZone struct {
+type LocalTimeWithoutZone struct {
 	time.Time
 }
 
-func (t TimeWithoutZone)MarshalJSON() ([]byte, error) {
-	stamp := fmt.Sprintf("\"%s\"", time.Time(t.Time).Format("2006-01-02T15:04:05"))
+func (t *LocalTimeWithoutZone) MarshalJSON() ([]byte, error) {
+	stamp := fmt.Sprintf(`"%s"`, t.Time.Format("2006-01-02T15:04:05"))
 	return []byte(stamp), nil
 }
 
-func (t *TimeWithoutZone) UnmarshalJSON(data []byte) error {
-	parsed, err := time.Parse("2006-01-02T15:04:05", string(data))
+const localTimeWithoutZoneFormat = "2006-01-02T15:04:05"
+
+func (t *LocalTimeWithoutZone) UnmarshalJSONXX(data []byte) error {
+	// Fractional seconds are handled implicitly by Parse.
+	var err error
+	t.Time, err = time.Parse(`"` + time.RFC3339 + `"`, string(data))
+	return err
+}
+
+func (t *LocalTimeWithoutZone) UnmarshalJSON(data []byte) (err error) {
+	t.Time, err = time.ParseInLocation(`"` + localTimeWithoutZoneFormat + `"`, string(data), time.Local)
 
 	if err != nil {
 		return err
 	}
-
-	t.Time = parsed
-
 	return nil
 }
 
@@ -173,14 +179,14 @@ type SendPacketResponse struct {
 type ApplicationListResponse struct {
 	DigimondoReponse
 	Applications []struct {
-		CreatedAt   TimeWithoutZone `json:"created_at"`  // TODO: used in doc but not in example
-		InsertedAt  TimeWithoutZone `json:"inserted_at"` // TODO: used in example but not in doc
+		CreatedAt   LocalTimeWithoutZone `json:"created_at"`  // TODO: used in doc but not in example
+		InsertedAt  LocalTimeWithoutZone `json:"inserted_at"` // TODO: used in example but not in doc
 		Description string `json:"description"`
-		Eui         interface{} `json:"eui"`
+		Eui         string `json:"eui"`
 		Id          int `json:"id"`
 		Name        string `json:"name"`
 		Sink        interface{} `json:"sink"`
-		UpdatedAt   TimeWithoutZone `json:"updated_at"`
+		UpdatedAt   LocalTimeWithoutZone `json:"updated_at"`
 	} `json:"applications,omitempty"`
 }
 
