@@ -13,7 +13,7 @@ import (
 
 type Client struct {
 	log          *log.Logger
-	http         http.Client
+	http         *http.Client
 	baseUrl      string
 	secretApiKey string
 	debugLog     bool
@@ -21,6 +21,7 @@ type Client struct {
 
 func NewClient(secretApiKey string) *Client {
 	client := &Client{}
+	client.http = http.DefaultClient
 	client.log = log.New(os.Stderr, "", log.LstdFlags)
 	client.secretApiKey = secretApiKey
 	client.baseUrl = "https://api.fireflyiot.com/api/v1/"
@@ -142,7 +143,7 @@ func (client *Client) post(url string, bodyType string, body io.Reader) (res *ht
 }
 
 func (client *Client) get(url string) (res *http.Response, err error) {
-	res, err =  client.http.Get(url)
+	res, err = client.http.Get(url)
 	if client.debugLog {
 		client.log.Println("GET", res.Status, url)
 	}
@@ -155,7 +156,7 @@ func (client *Client) delete(url string) (res *http.Response, err error) {
 		return nil, err
 	}
 
-	res, err =  client.http.Do(req)
+	res, err = client.http.Do(req)
 	if client.debugLog {
 		client.log.Println("DELETE", res.Status, url)
 	}

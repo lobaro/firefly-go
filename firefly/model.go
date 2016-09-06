@@ -143,7 +143,7 @@ type PacketListResponse struct {
 		} `json:"gwrx"`
 		Modu             string `json:"modu"`
 		Mtype            string `json:"mtype"`
-		Parsed           string `json:parsed`
+		Parsed           interface{} `json:"parsed"`
 		Payload          string `json:"payload"`
 		PayloadEncrypted bool `json:"payload_encrypted"`
 		Port             int `json:"port"`

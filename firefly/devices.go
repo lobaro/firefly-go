@@ -57,7 +57,7 @@ func (client Client) DeleteDevice(eui EUI) (err error) {
 	return
 }
 
-func (client Client) ListPackets(eui EUI, params ListPacketsParams) (r PacketListResponse, err error) {
+func (client Client) ListDevicePackets(eui EUI, params ListPacketsParams) (r PacketListResponse, err error) {
 	reqUrl := client.Url()
 	reqUrl.Path += "devices/eui/" + string(eui) + "/packets"
 
