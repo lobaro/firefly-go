@@ -9,7 +9,7 @@ type EUI string
 type DeviceAddress string
 
 type DigimondoReponse struct {
-	Error string `json:"error"`
+	Error string `json:"error,omitempty"`
 }
 
 type LocalTimeWithoutZone struct {
@@ -150,7 +150,7 @@ type PacketListResponse struct {
 		ReceivedAt       string `json:"received_at"`
 		Size             int `json:"size"`
 		SpreadingFactor  int `json:"spreading_factor"`
-	} `json:"packets,omitempty"`
+	} `json:"packets"`
 }
 
 type CreateDeviceRequest struct {

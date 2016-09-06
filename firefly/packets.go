@@ -7,7 +7,7 @@ import (
 
 func (client Client) AllPackets(params ListAllPacketsParams) (r PacketListResponse, err error) {
 	reqUrl := client.Url()
-	reqUrl.Path += "/packets"
+	reqUrl.Path += "packets"
 
 	q := reqUrl.Query()
 	if (params.Direction != "") {
