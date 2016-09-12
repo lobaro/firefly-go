@@ -1,6 +1,10 @@
 # GoLang Client for the Firefly API
 
-![Digimondo](docs/digimondo_logo.jpg "Digimondo") ![Lobaro](docs/lobaro_logo.jpg "Lobaro") ![LoRa](docs/lora_logo.jpg "LoRa")
+| | | |
+:---:|:---:|:---:
+ ![Digimondo](docs/digimondo_logo.jpg "Digimondo")  |  ![Lobaro](docs/lobaro_logo.jpg "Lobaro") | ![LoRa](docs/lora_logo.jpg "LoRa")
+
+  
 
 
 [Digimondo](https://www.digimondo.de) is a Service Provider for LoRa™ Networks based on LoRaWAN™.  
