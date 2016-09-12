@@ -1,0 +1,20 @@
+image: golang:1.7
+
+stages:
+  - build
+
+job_build:win:
+  stage: build
+  script:
+    - env GOOS=windows GOARCH=386 go build -o build/firefly-go-win-x86 -i ./firefly/
+  artifacts:
+    paths:
+      - build/
+      
+job_build:linux:
+  stage: build
+  script:
+    - env GOOS=linux GOARCH=386 go build -o build/firefly-go-linux-x86 -i ./firefly/
+  artifacts:
+    paths:
+      - build/
