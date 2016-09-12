@@ -106,7 +106,7 @@ type ListDevicePacketsParams struct {
 	ReceivedAfter *time.Time
 }
 
-func ListDevicePacketsParamsFromQuery(q url.Values) *ListDevicePacketsParams {
+func ListDevicePacketsParamsFromQuery(q url.Values) ListDevicePacketsParams {
 
 	var receivedAfterPtr *time.Time
 	receivedAfter, err := time.Parse(localTimeWithoutZoneFormat, q.Get("received_after"))
@@ -117,7 +117,7 @@ func ListDevicePacketsParamsFromQuery(q url.Values) *ListDevicePacketsParams {
 		receivedAfterPtr = &receivedAfter
 	}
 
-	params := &ListDevicePacketsParams{
+	params := ListDevicePacketsParams{
 		Direction: q.Get("direction"),
 		LimitToLast: saveParseInt(q.Get("limit_to_last")),
 		Offset: saveParseInt(q.Get("offset")),
@@ -143,7 +143,7 @@ type ListAllPacketsParams struct {
 	SkipSuborgs   bool
 }
 
-func ListAllPacketsParamsFromQuery(q url.Values) *ListAllPacketsParams {
+func ListAllPacketsParamsFromQuery(q url.Values) ListAllPacketsParams {
 
 	var receivedAfterPtr *time.Time
 	receivedAfter, err := time.Parse(localTimeWithoutZoneFormat, q.Get("received_after"))
@@ -154,7 +154,7 @@ func ListAllPacketsParamsFromQuery(q url.Values) *ListAllPacketsParams {
 		receivedAfterPtr = &receivedAfter
 	}
 
-	params := &ListAllPacketsParams{
+	params := ListAllPacketsParams{
 		Direction: q.Get("direction"),
 		LimitToLast: saveParseInt(q.Get("limit_to_last")),
 		Offset: saveParseInt(q.Get("offset")),
