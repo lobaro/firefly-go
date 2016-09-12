@@ -166,34 +166,36 @@ func ListAllPacketsParamsFromQuery(q url.Values) *ListAllPacketsParams {
 	return params
 }
 
+type Packet struct {
+	Ack              bool `json:"ack"`
+	Bandwidth        int `json:"bandwidth"`
+	Codr             string `json:"codr"`
+	Datr             string `json:"datr"` // TODO: type? Not specified in docu
+	DeviceEui        string `json:"device_eui"`
+	Fopts            string `json:"fopts"`
+	Fcnt             int `json:"fcnt"`
+	Freq             float64 `json:"freq"`
+	Gwrx             []struct {
+		Gweui string `json:"gweui"`
+		Lsnr  float64 `json:"lsnr"`
+		Rssi  int `json:"rssi"`
+		Time  time.Time `json:"time"`
+		Tmst  int64 `json:"tmst"`
+	} `json:"gwrx"`
+	Modu             string `json:"modu"`
+	Mtype            string `json:"mtype"`
+	Parsed           interface{} `json:"parsed"`
+	Payload          string `json:"payload"`
+	PayloadEncrypted bool `json:"payload_encrypted"`
+	Port             int `json:"port"`
+	ReceivedAt       LocalTimeWithoutZone `json:"received_at"`
+	Size             int `json:"size"`
+	SpreadingFactor  int `json:"spreading_factor"`
+}
+
 type PacketListResponse struct {
 	DigimondoReponse
-	Packets []struct {
-		Ack              bool `json:"ack"`
-		Bandwidth        int `json:"bandwidth"`
-		Codr             string `json:"codr"`
-		Datr             string `json:"datr"` // TODO: type? Not specified in docu
-		DeviceEui        string `json:"device_eui"`
-		Fopts            string `json:"fopts"`
-		Fcnt             int `json:"fcnt"`
-		Freq             float64 `json:"freq"`
-		Gwrx             []struct {
-			Gweui string `json:"gweui"`
-			Lsnr  float64 `json:"lsnr"`
-			Rssi  int `json:"rssi"`
-			Time  time.Time `json:"time"`
-			Tmst  int64 `json:"tmst"`
-		} `json:"gwrx"`
-		Modu             string `json:"modu"`
-		Mtype            string `json:"mtype"`
-		Parsed           interface{} `json:"parsed"`
-		Payload          string `json:"payload"`
-		PayloadEncrypted bool `json:"payload_encrypted"`
-		Port             int `json:"port"`
-		ReceivedAt       LocalTimeWithoutZone `json:"received_at"`
-		Size             int `json:"size"`
-		SpreadingFactor  int `json:"spreading_factor"`
-	} `json:"packets"`
+	Packets []Packet `json:"packets"`
 }
 
 type CreateDeviceRequest struct {
