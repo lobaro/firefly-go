@@ -166,6 +166,14 @@ func ListAllPacketsParamsFromQuery(q url.Values) ListAllPacketsParams {
 	return params
 }
 
+type Gwrx struct {
+	Gweui string `json:"gweui"`
+	Lsnr  float64 `json:"lsnr"`
+	Rssi  int `json:"rssi"`
+	Time  time.Time `json:"time"`
+	Tmst  int64 `json:"tmst"`
+}
+
 type Packet struct {
 	Ack              bool `json:"ack"`
 	Bandwidth        int `json:"bandwidth"`
@@ -175,13 +183,7 @@ type Packet struct {
 	Fopts            string `json:"fopts"`
 	Fcnt             int `json:"fcnt"`
 	Freq             float64 `json:"freq"`
-	Gwrx             []struct {
-		Gweui string `json:"gweui"`
-		Lsnr  float64 `json:"lsnr"`
-		Rssi  int `json:"rssi"`
-		Time  time.Time `json:"time"`
-		Tmst  int64 `json:"tmst"`
-	} `json:"gwrx"`
+	Gwrx             []Gwrx `json:"gwrx,omitempty"`
 	Modu             string `json:"modu"`
 	Mtype            string `json:"mtype"`
 	Parsed           interface{} `json:"parsed"`
