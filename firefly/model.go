@@ -3,8 +3,8 @@ package firefly
 import (
 	"time"
 	"fmt"
+	"net/url"
 )
-
 
 type DigimondoReponse struct {
 	Error string `json:"error,omitempty"`
@@ -106,6 +106,28 @@ type ListDevicePacketsParams struct {
 	ReceivedAfter *time.Time
 }
 
+func ListDevicePacketsParamsFromQuery(q url.Values) *ListDevicePacketsParams {
+
+	var receivedAfterPtr *time.Time
+	receivedAfter, err := time.Parse(localTimeWithoutZoneFormat, q.Get("received_after"))
+
+	if err != nil {
+		receivedAfterPtr = nil
+	} else {
+		receivedAfterPtr = &receivedAfter
+	}
+
+	params := &ListDevicePacketsParams{
+		Direction: q.Get("direction"),
+		LimitToLast: saveParseInt(q.Get("limit_to_last")),
+		Offset: saveParseInt(q.Get("offset")),
+		PayloadOnly: saveParseBool(q.Get("payload_only")),
+		ReceivedAfter: receivedAfterPtr,
+	}
+
+	return params
+}
+
 type ListAllPacketsParams struct {
 	// (optional) when set to asc, it will return the oldest Packets first. When set to desc, it will return the most recent packets. Default is desc.
 	Direction     string
@@ -119,6 +141,29 @@ type ListAllPacketsParams struct {
 	ReceivedAfter *time.Time
 	// 	(optional) do NOT show Packets from Devices that are not directly in the Organization that the API Key is registered for.
 	SkipSuborgs   bool
+}
+
+func ListAllPacketsParamsFromQuery(q url.Values) *ListAllPacketsParams {
+
+	var receivedAfterPtr *time.Time
+	receivedAfter, err := time.Parse(localTimeWithoutZoneFormat, q.Get("received_after"))
+
+	if err != nil {
+		receivedAfterPtr = nil
+	} else {
+		receivedAfterPtr = &receivedAfter
+	}
+
+	params := &ListAllPacketsParams{
+		Direction: q.Get("direction"),
+		LimitToLast: saveParseInt(q.Get("limit_to_last")),
+		Offset: saveParseInt(q.Get("offset")),
+		PayloadOnly: saveParseBool(q.Get("payload_only")),
+		ReceivedAfter: receivedAfterPtr,
+		SkipSuborgs: saveParseBool(q.Get("skip_suborgs")),
+	}
+
+	return params
 }
 
 type PacketListResponse struct {

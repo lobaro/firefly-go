@@ -2,7 +2,7 @@ package firefly
 
 import "testing"
 
-func TestShowApplications(t *testing.T) {
+func SKIP_TestShowApplications(t *testing.T) {
 	c := setupValidClient(t)
 	r, err := c.ShowApplications()
 

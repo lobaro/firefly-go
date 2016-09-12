@@ -26,7 +26,7 @@ func (client Client) AllPackets(params ListAllPacketsParams) (r PacketListRespon
 	}
 
 	if (params.SkipSuborgs != false) {
-		q.Set("received_after", strconv.FormatBool(params.SkipSuborgs))
+		q.Set("skip_suborgs", strconv.FormatBool(params.SkipSuborgs))
 	}
 
 	reqUrl.RawQuery = q.Encode()
